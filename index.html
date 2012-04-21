@@ -7,10 +7,50 @@
 <link rel="stylesheet" type="text/css" href="main.css" >
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 
+<script lang="javascript">
+
+
+function kpress(event) {
+ if (event.which == null)
+   char = String.fromCharCode(event.keyCode);
+ else if (event.which != 0 && event.charCode != 0)
+   char = String.fromCharCode(event.which);
+ else {
+   // default action.
+   return true;
+ }
+
+ console.log("you pressed: " + char)
+ var e = document.getElementById('a');
+  e.innerHTML = char;
+//  periodicallyRerender();
+
+ return true;
+}
+
+function kup(event) {
+   console.log(event)
+}
+
+function kdown(event) {
+   console.log(event)
+}
+
+document.onkeypress = kpress;
+document.onkeyup = kup;
+document.onkeydown = kdown;
+
+</script>
+
 
 </head>
 
 <h4> Hello World </h4>
+<h1> Hello World </h1>
 
+<div>
+hello
+<span id="a">a</span><span id="b">b</span><span id="c">c</span>
+</div>
 
 </html>
