@@ -9,7 +9,22 @@
 
 <script lang="javascript">
 
- var line1 = "+-------------------------------------------------+"
+ var line0 = "+-------------------------------------------------+"
+ var line1 = "|                                                 |"
+
+
+ function init() {
+   var e = document.getElementById('line0');
+   e.innerHTML = line0;
+   for (i = 1; i < 39; i++) {
+     e = document.getElementById('line' + i);
+     e.innerHTML = line1.replace(/ /g,'&nbsp'); //' ', '&nbsp');
+   }
+
+     e = document.getElementById('line39');
+     e.innerHTML = line0;
+
+ }
 
 function kpress(event) {
  if (event.which == null)
@@ -39,14 +54,18 @@ function kdown(event) {
    console.log(event)
 }
 
-document.onkeypress = kpress;
-document.onkeyup = kup;
-document.onkeydown = kdown;
+window.onkeypress = kpress;
+window.onkeyup = kup;
+window.onkeydown = kdown;
+
+window.onload = init;
 
 </script>
 
 
 </head>
+
+<body class="page" onload="init()">
 
 <div>
 hello
@@ -95,6 +114,6 @@ hello
 <div id="line38">.</div>
 <div id="line39">.</div>
 
-
+</body>
 
 </html>
