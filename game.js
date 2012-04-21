@@ -1,38 +1,3 @@
-
- var lines = new Array("                                                   ",
-                       " SCORE: 100                                        ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                     WWWWWWWWWW                    ",
-                       "                     W W      W                    ",
-                       "                     W W      W                    ",
-                       "                     W W      W                    ",
-                       "                     W W    W W                    ",
-                       "                     W      W W                    ",
-                       "                     W      W W                    ",
-                       "                     W      W W                    ",
-                       "                     WWwWWWWWWW                    ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                    ARROW KEYS                     ",
-                       "                                                   ",
-                       "                      TO MOVE                      ",
-                       "                                                   ",
-                       "                                                   ")
-
-
-
-
  var worldrows = 100
  var worldcolumns = 200
 
@@ -58,8 +23,13 @@
                       "W      W W",
                       "W      W W",
                       "WWwWWWWWWW"),
-            55,
-            105)
+            60,
+            125);
+            
+ addToWorld(Array("ARROW KEYS",
+                  "          ",
+                  "  TO MOVE "),
+            75, 126);
  
 
  var viewportrows = 30;
@@ -106,13 +76,13 @@ function kdown(event) {
   if (event.which != 0)
       switch (event.keyCode) {
       case 37 : // LEFT
-          viewportj += 1;
+          viewportj -= 1;
           break;
       case 38 : // UP
           viewporti -= 1;
           break;
       case 39 : // RIGHT
-          viewportj -= 1;
+          viewportj += 1;
           break;
       case 40 : // DOWN
           viewporti += 1;
