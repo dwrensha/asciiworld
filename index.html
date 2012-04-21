@@ -9,6 +9,7 @@
 
 <script lang="javascript">
 
+ var line1 = "+-------------------------------------------------+"
 
 function kpress(event) {
  if (event.which == null)
@@ -22,14 +23,16 @@ function kpress(event) {
 
  console.log("you pressed: " + char)
  var e = document.getElementById('a');
+  if (char == ' ') char = '&nbsp'
   e.innerHTML = char;
+
 //  periodicallyRerender();
 
  return true;
 }
 
 function kup(event) {
-   console.log(event)
+ console.log(event)
 }
 
 function kdown(event) {
@@ -45,12 +48,53 @@ document.onkeydown = kdown;
 
 </head>
 
-<h4> Hello World </h4>
-<h1> Hello World </h1>
-
 <div>
 hello
 <span id="a">a</span><span id="b">b</span><span id="c">c</span>
 </div>
+
+
+<div id="line0">.</div>
+<div id="line1">.</div>
+<div id="line2">.</div>
+<div id="line3">.</div>
+<div id="line4">.</div>
+<div id="line5">.</div>
+<div id="line6">.</div>
+<div id="line7">.</div>
+<div id="line8">.</div>
+<div id="line9">.</div>
+<div id="line10">.</div>
+<div id="line11">.</div>
+<div id="line12">.</div>
+<div id="line13">.</div>
+<div id="line14">.</div>
+<div id="line15">.</div>
+<div id="line16">.</div>
+<div id="line17">.</div>
+<div id="line18">.</div>
+<div id="line19">.</div>
+<div id="line20">.</div>
+<div id="line21">.</div>
+<div id="line22">.</div>
+<div id="line23">.</div>
+<div id="line24">.</div>
+<div id="line25">.</div>
+<div id="line26">.</div>
+<div id="line27">.</div>
+<div id="line28">.</div>
+<div id="line29">.</div>
+<div id="line30">.</div>
+<div id="line31">.</div>
+<div id="line32">.</div>
+<div id="line33">.</div>
+<div id="line34">.</div>
+<div id="line35">.</div>
+<div id="line36">.</div>
+<div id="line37">.</div>
+<div id="line38">.</div>
+<div id="line39">.</div>
+
+
 
 </html>
