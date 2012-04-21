@@ -7,96 +7,11 @@
 <link rel="stylesheet" type="text/css" href="main.css" >
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 
-<script lang="javascript">
-
-  var numlines = 30
-
- var lines = new Array("                                                   ",
-                       " SCORE: 100                                        ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                     WWWWWWWWWW                    ",
-                       "                     W W      W                    ",
-                       "                     W W      W                    ",
-                       "                     W W      W                    ",
-                       "                     W W    W W                    ",
-                       "                     W      W W                    ",
-                       "                     W      W W                    ",
-                       "                     W      W W                    ",
-                       "                     WWwWWWWWWW                    ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                                                   ",
-                       "                    ARROW KEYS                     ",
-                       "                                                   ",
-                       "                      TO MOVE                      ",
-                       "                                                   ",
-                       "                                                   ")
-
-
- function init() {
-   var e;
-   for (i = 0; i < numlines; i++) {
-     e = document.getElementById('line' + i);
-     e.innerHTML = lines[i].replace(/ /g,'&nbsp'); //' ', '&nbsp');
-   }
-
-    e = document.getElementById('topbar' );
-    e.innerHTML = "+---------------------------------------------------+";
-    e = document.getElementById('botbar' );
-    e.innerHTML = "+---------------------------------------------------+";
-
- }
-
-function kpress(event) {
- if (event.which == null)
-   char = String.fromCharCode(event.keyCode);
- else if (event.which != 0 && event.charCode != 0)
-   char = String.fromCharCode(event.which);
- else {
-   // default action.
-   return true;
- }
-
- console.log("you pressed: " + char)
- var e = document.getElementById('a');
-  if (char == ' ') char = '&nbsp'
-  e.innerHTML = char;
-
-//  periodicallyRerender();
-
- return true;
-}
-
-function kup(event) {
- console.log(event)
-}
-
-function kdown(event) {
-   console.log(event)
-}
-
-window.onkeypress = kpress;
-window.onkeyup = kup;
-window.onkeydown = kdown;
-
-window.onload = init;
-
-</script>
-
+<script type="text/javascript" src="game.js"></script>
 
 </head>
 
-<body class="page" onload="init()">
+<body class="page" onload="render()">
 
 <div id="game">
 
@@ -107,7 +22,7 @@ hello
 
 <span id="topbar">.</span>
 
-<div>|<span id="line0">.</span>|</div>
+<div>|<span id="line0">please make sure that javascript is enabled</span>|</div>
 <div>|<span id="line1">.</span>|</div>
 <div>|<span id="line2">.</span>|</div>
 <div>|<span id="line3">.</span>|</div>
