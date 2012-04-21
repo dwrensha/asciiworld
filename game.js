@@ -94,23 +94,7 @@
  }
 
 function kpress(event) {
- if (event.which == null)
-   char = String.fromCharCode(event.keyCode);
- else if (event.which != 0 && event.charCode != 0)
-   char = String.fromCharCode(event.which);
- else {
-   // default action.
-   return true;
- }
-
- console.log("you pressed: " + char)
- var e = document.getElementById('a');
-  if (char == ' ') char = '&nbsp'
-  e.innerHTML = char;
-
-//  periodicallyRerender();
-
- return true;
+ console.log(event)
 }
 
 function kup(event) {
@@ -118,7 +102,32 @@ function kup(event) {
 }
 
 function kdown(event) {
-   console.log(event)
+ console.log(event);
+  if (event.which != 0)
+      switch (event.keyCode) {
+      case 37 : // LEFT
+          viewportj += 1;
+          break;
+      case 38 : // UP
+          viewporti -= 1;
+          break;
+      case 39 : // RIGHT
+          viewportj -= 1;
+          break;
+      case 40 : // DOWN
+          viewporti += 1;
+          break;
+      default:
+      }
+ else {
+   // default action.
+   return true;
+ }
+
+
+ render();
+
+ return true;
 }
 
 window.onkeypress = kpress;
