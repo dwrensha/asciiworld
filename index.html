@@ -9,20 +9,51 @@
 
 <script lang="javascript">
 
- var line0 = "+-------------------------------------------------+"
- var line1 = "|                                                 |"
+  var numlines = 30
+
+ var lines = new Array("+-------------------------------------------------+",
+                       "|                                                 |",
+                       "|                                                 |",
+                       "|                                                 |",
+                       "|                                                 |",
+                       "|                                                 |",
+                       "|                    ##########                   |",
+                       "|                    #        #                   |",
+                       "|                    #        #                   |",
+                       "|                    #        #                   |",
+                       "|                    #        #                   |",
+                       "|                    #        #                   |",
+                       "|                    #        #                   |",
+                       "|                    #        #                   |",
+                       "|                    ##########                   |",
+                       "|                                                 |",
+                       "|                                                 |",
+                       "|                                                 |",
+                       "|                                                 |",
+                       "|                                                 |",
+                       "|                                                 |",
+                       "|                                                 |",
+                       "|                                                 |",
+                       "|                                                 |",
+                       "|                                                 |",
+                       "|                                                 |",
+                       "|                                                 |",
+                       "|                                                 |",
+                       "|                                                 |",
+                       "+-------------------------------------------------+")
 
 
  function init() {
-   var e = document.getElementById('line0');
-   e.innerHTML = line0;
-   for (i = 1; i < 39; i++) {
+   var e;
+   for (i = 0; i < numlines; i++) {
      e = document.getElementById('line' + i);
-     e.innerHTML = line1.replace(/ /g,'&nbsp'); //' ', '&nbsp');
+     e.innerHTML = lines[i].replace(/ /g,'&nbsp'); //' ', '&nbsp');
    }
 
-     e = document.getElementById('line39');
-     e.innerHTML = line0;
+    e = document.getElementById('topbar' );
+    e.innerHTML = "+---------------------------------------------------+";
+    e = document.getElementById('botbar' );
+    e.innerHTML = "+---------------------------------------------------+";
 
  }
 
@@ -67,52 +98,49 @@ window.onload = init;
 
 <body class="page" onload="init()">
 
+<div id="game">
+
 <div>
 hello
 <span id="a">a</span><span id="b">b</span><span id="c">c</span>
 </div>
 
+<span id="topbar">.</span>
 
-<div id="line0">.</div>
-<div id="line1">.</div>
-<div id="line2">.</div>
-<div id="line3">.</div>
-<div id="line4">.</div>
-<div id="line5">.</div>
-<div id="line6">.</div>
-<div id="line7">.</div>
-<div id="line8">.</div>
-<div id="line9">.</div>
-<div id="line10">.</div>
-<div id="line11">.</div>
-<div id="line12">.</div>
-<div id="line13">.</div>
-<div id="line14">.</div>
-<div id="line15">.</div>
-<div id="line16">.</div>
-<div id="line17">.</div>
-<div id="line18">.</div>
-<div id="line19">.</div>
-<div id="line20">.</div>
-<div id="line21">.</div>
-<div id="line22">.</div>
-<div id="line23">.</div>
-<div id="line24">.</div>
-<div id="line25">.</div>
-<div id="line26">.</div>
-<div id="line27">.</div>
-<div id="line28">.</div>
-<div id="line29">.</div>
-<div id="line30">.</div>
-<div id="line31">.</div>
-<div id="line32">.</div>
-<div id="line33">.</div>
-<div id="line34">.</div>
-<div id="line35">.</div>
-<div id="line36">.</div>
-<div id="line37">.</div>
-<div id="line38">.</div>
-<div id="line39">.</div>
+<div>|<span id="line0">.</span>|</div>
+<div>|<span id="line1">.</span>|</div>
+<div>|<span id="line2">.</span>|</div>
+<div>|<span id="line3">.</span>|</div>
+<div>|<span id="line4">.</span>|</div>
+<div>|<span id="line5">.</span>|</div>
+<div>|<span id="line6">.</span>|</div>
+<div>|<span id="line7">.</span>|</div>
+<div>|<span id="line8">.</span>|</div>
+<div>|<span id="line9">.</span>|</div>
+<div>|<span id="line10">.</span>|</div>
+<div>|<span id="line11">.</span>|</div>
+<div>|<span id="line12">.</span>|</div>
+<div>|<span id="line13">.</span>|</div>
+<div>|<span id="line14">.</span>|</div>
+<div>|<span id="line15">.</span>|</div>
+<div>|<span id="line16">.</span>|</div>
+<div>|<span id="line17">.</span>|</div>
+<div>|<span id="line18">.</span>|</div>
+<div>|<span id="line19">.</span>|</div>
+<div>|<span id="line20">.</span>|</div>
+<div>|<span id="line21">.</span>|</div>
+<div>|<span id="line22">.</span>|</div>
+<div>|<span id="line23">.</span>|</div>
+<div>|<span id="line24">.</span>|</div>
+<div>|<span id="line25">.</span>|</div>
+<div>|<span id="line26">.</span>|</div>
+<div>|<span id="line27">.</span>|</div>
+<div>|<span id="line28">.</span>|</div>
+<div>|<span id="line29">.</span>|</div>
+
+<div id="botbar">.</div>
+
+</div>
 
 </body>
 
