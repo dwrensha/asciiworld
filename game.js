@@ -6,34 +6,92 @@
      world[ii] = new Array(worldcolumns)
  }
 
- var turn = 0;
+ var turn = 1;
 
  var objectsThatAct = new Array();
 
- function Thing(char) {
-     this.renderChar = char
-   
-     switch (char) {
-     case "C" :  // cannon
-         objectsThatAct.push(this);
-         this.act =
-             (function() {
-                 if (turn % 10 == 0) {
-                     console.log("boom")
+ function isEmpty(row, col) {
+     var o = world[row][col];
+     if (o === undefined) return true;
+     if (o.renderChar == " " || 
+         o.renderChar == "&nbsp") return true;
+     return false;
+ }
+
+ function GenericThing(char) {
+ }
+
+ var player;
+
+ function Player() {
+     player = this;
+ }
+
+ function Bomb() {
+     this.act = 
+         (function () {
+             if (turn % 2 == 1) {
+                 console.log("crawl");
+                 world[this.row][this.col] = newThing(this.row, this.col, "&nbsp");
+                 this.row -= 1;
+                 if (this.col < player.col) {
+                     this.col += 1;
+                 } else if (this.col > player.col) {
+                     this.col -= 1;
                  }
-             })
-                     
+                 world[this.row][this.col] = this;
+
+             }
+         })
+ }
+
+ function Cannon() {
+     this.act =
+         (function() {
+             if (turn % 10 == 0) {
+                 console.log("boom")
+                 newThing(this.row - 1, this.col, "B");
+             }
+
+         })
+ }
+
+
+
+ function newThing(row, col, char) {
+  
+     var o;
+ 
+     switch (char) {
+     case "@" : // player
+         o =  new Player();
          break;
-     default : 
-         
+     case "B" :  // bomb
+         o = new Bomb()
+         objectsThatAct.push(o);
+         break;
+     case "C" :  // cannon
+         o = new Cannon()
+         objectsThatAct.push(o);
+         break;
+     default :
+         o = new GenericThing(char);
      }
+
+     o.renderChar = char;
+     o.row = row;
+     o.col = col;
+     world[row][col] = o;
+     return o;
 
  }
 
  function addToWorld(stringarray, row, col) {
      for(var i = 0; i < stringarray.length; ++i){
          for(var j = 0; j < stringarray[i].length; ++j) {
-             world[i + row][j + col] = new Thing(stringarray[i].charAt(j))
+             var myrow = i + row;
+             var mycol = j + col
+             newThing(myrow, mycol, stringarray[i].charAt(j))
          }
      }
  }
@@ -42,7 +100,7 @@
                       "W W      W",
                       "W W      W",
                       "W W      W",
-                      "W W    W W",
+                      "W W @  W W",
                       "W      W W",
                       "W      W W",
                       "W      W W",
@@ -65,14 +123,7 @@
  var viewporti = 50;
  var viewportj = 100;
 
- function Player() {
-     this.renderChar = "@"
- }
 
- var playeri = 60;
- var playerj = 110;
-
- world[playeri][playerj] = new Player()
 
  function subarrayToString(arr, start, end) {
      var res = "";
