@@ -138,11 +138,21 @@
 
 
 
- function subarrayToString(arr, start, end) {
+ function subarrayToString(row, start, end) {
      var res = "";
+
+     if (row < 0 || row >= worldrows) {
+         for (var j = start; j < end; ++j) {
+             res += 'X';
+         }
+         return res;
+     }
+
      for (var j = start; j < end; ++j) {
-         if (arr[j] !== undefined) {
-             res += arr[j].renderChar;
+         if (j < 0 || j >= worldcolumns) {
+             res += 'X';
+         } else if (world[row][j] !== undefined) {
+             res += world[row][j].renderChar;
          } else {
              res += '&nbsp'
          }
@@ -155,7 +165,7 @@
      var e;
      for (var i = 0; i < viewportrows; ++i) {
          e = document.getElementById('line' + i);
-         e.innerHTML = subarrayToString(world[i + viewporti], viewportj, viewportj + viewportcolumns)
+         e.innerHTML = subarrayToString(i + viewporti, viewportj, viewportj + viewportcolumns)
      }
  }
 
