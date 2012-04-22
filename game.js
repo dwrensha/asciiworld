@@ -59,6 +59,16 @@
  function Player() {
      player = this;
  }
+ 
+ function die() {
+     addToWorld(new Array("KABOOM.",
+                          "YOU HAVE",
+                          "DIED."),
+                player.row,
+                player.col)
+     window.onkeydown = function () {};
+
+ }
 
  function Bomb() {
      this.act = 
@@ -86,6 +96,9 @@
                      console.log("destroying it");
                      return false;
                      break;
+                 case "@" : 
+                     die();
+                     break;
                  default : 
                      return false;
                  }
@@ -98,7 +111,7 @@
  function Cannon() {
      this.act =
          (function() {
-             if (turn % 15 == 0) {
+             if (turn % 25 == 0) {
                  newThing(this.row - 1, this.col, "B");
              }
              return true;
@@ -236,6 +249,9 @@
  addToWorld(Array("SCORE: 0"),
              51, 101);
 
+ addToWorld(Array("ggg"),
+             48, 90);
+
  addToWorld(Array("CLUE?"),
              90, 123);
 
@@ -354,6 +370,10 @@ function kdown(event) {
                     for (var i = 0; i < 100; ++i) { scoreObj.increment(); }
                     break;
                 case "B":
+                    die();
+                    removeThingFromWorld(targetrow, targetcol);
+                    render();
+                    return true;
                     break;
                 default:
 
@@ -362,17 +382,17 @@ function kdown(event) {
             }
 
 
-            if (player.col < viewportj + 5) {
-                viewportj = player.col - 5;
+            if (player.col < viewportj + 8) {
+                viewportj = player.col - 8;
             }
-            if (player.row < viewporti + 3) {
-                viewporti = player.row - 3;
+            if (player.row < viewporti + 4) {
+                viewporti = player.row - 4;
             }
-            if (player.col > viewportj + viewportcolumns - 5) {
-                viewportj = player.col - viewportcolumns + 5;
+            if (player.col > viewportj + viewportcolumns - 8) {
+                viewportj = player.col - viewportcolumns + 8;
             }
-            if (player.row > viewporti + viewportrows - 3) {
-                viewporti = player.row - viewportrows + 3;
+            if (player.row > viewporti + viewportrows - 4) {
+                viewporti = player.row - viewportrows + 4;
             }
         }
         
