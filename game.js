@@ -6,10 +6,14 @@
      world[ii] = new Array(worldcolumns)
  }
 
+ function Thing(char) {
+     this.renderChar = char
+ }
+
  function addToWorld(stringarray, row, col) {
      for(var i = 0; i < stringarray.length; ++i){
          for(var j = 0; j < stringarray[i].length; ++j) {
-             world[i + row][j + col] = stringarray[i].charAt(j)
+             world[i + row][j + col] = new Thing(stringarray[i].charAt(j))
          }
      }
  }
@@ -38,14 +42,20 @@
  var viewporti = 50;
  var viewportj = 100;
 
+ function Player() {
+     this.renderChar = "@"
+ }
+
  var playeri = 60;
  var playerj = 110;
+
+ world[playeri][playerj] = new Player()
 
  function subarrayToString(arr, start, end) {
      var res = "";
      for (var j = start; j < end; ++j) {
          if (arr[j] !== undefined) {
-             res += arr[j];
+             res += arr[j].renderChar;
          } else {
              res += '&nbsp'
          }
