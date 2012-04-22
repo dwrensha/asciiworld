@@ -260,6 +260,10 @@
                   "wwwwwwwwwwwwwwwwwwwwww"),
             30, 105);
  
+ addToWorld(new Array("\u266A"),
+            75, 120)
+            
+
  var viewportrows = 30;
  var viewportcolumns = 50;
 
