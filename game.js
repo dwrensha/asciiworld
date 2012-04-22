@@ -6,6 +6,19 @@
      world[ii] = new Array(worldcolumns)
  }
 
+ function worldCharAt(row, col) {
+     if (row < 0 || col < 0 ||
+         row >= worldrows || col >= worldcolumns) {
+         return 'X';
+     }
+     var res = world[row][col];
+     if (res === undefined) {
+         return " ";
+     } else {
+         return res.renderChar;
+     }
+ }
+
  var turn = 1;
 
  var objectsThatAct = new Array();
@@ -51,15 +64,32 @@
      this.act = 
          (function () {
              if (turn % 2 == 1) {
-                 console.log("crawl");
                  removeThingFromWorld(this.row, this.col);
-                 this.row -= 1;
+                 var targetcol = this.col;
+                 var targetrow = this.row - 1;
                  if (this.col < player.col) {
-                     this.col += 1;
+                     targetcol = this.col + 1;
                  } else if (this.col > player.col) {
-                     this.col -= 1;
+                     targetcol = this.col - 1;
                  }
-                 return addThingToWorld(this.row, this.col, this);
+
+                 if (isEmpty(targetrow, targetcol)) {
+                     this.row = targetrow
+                     this.col = targetcol
+                     return addThingToWorld(this.row, this.col, this);
+                 }
+
+                 switch (worldCharAt(targetrow, targetcol)) {
+                 case "w" :
+                     // destroy it.
+                     removeThingFromWorld(targetrow, targetcol); 
+                     console.log("destroying it");
+                     return false;
+                     break;
+                 default : 
+                     return false;
+                 }
+
              }
              return true;
          })
@@ -171,15 +201,20 @@
                       "W      W W",
                       "WWwWWWWWWW"),
             59,
-            122);
+            121);
             
  addToWorld(Array("ARROW KEYS",
                   "          ",
                   "  TO MOVE "),
-            76, 123);
+            76, 121);
 
  addToWorld(Array("SCORE: 0"),
              51, 101);
+
+ addToWorld(Array("wwwwwwwwwwwwwwwwwwwwww",
+                  "wggwwwwwwwwwwwwwwwwwww",
+                  "wwwwwwwwwwwwwwwwwwwwww"),
+            30, 105);
  
  var viewportrows = 30;
  var viewportcolumns = 50;
@@ -203,9 +238,6 @@
          } else if (world[row][j] !== undefined) {
              var c = world[row][j].renderChar;
              res += c;
-//             if (c.length > 1) {
-//                 j += c.length - 1;
-//             }
          } else {
              res += '&nbsp'
          }
@@ -230,22 +262,21 @@
              objectsThatAct.push(o);
          }
      }
-     console.log("stuff: " + objectsThatAct.length);
      ++turn;
      scoreObj.increment();
 
  }
 
 function kpress(event) {
- console.log(event)
+// console.log(event)
 }
 
 function kup(event) {
- console.log(event)
+// console.log(event)
 }
 
 function kdown(event) {
-    console.log(event);
+//    console.log(event);
     if (event.which != 0)
         switch (event.keyCode) {
         case 37 : // LEFT
