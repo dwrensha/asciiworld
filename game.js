@@ -379,6 +379,13 @@ function kdown(event) {
                     render();
                     return true;
                     break;
+                case '\u266A': //music
+                    removeThingFromWorld(player.row, player.col);
+                    addThingToWorld(targetrow, targetcol, player);
+                    player.row = targetrow;
+                    player.col = targetcol;
+                    document.getElementById('music').play();
+                    break;
                 default:
 
                 }
