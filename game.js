@@ -331,6 +331,11 @@
                        54, 60)
 
  addToWorld(
+     new Array("A Little Fable",
+               "Franz Kafka"),
+     4, 150)
+
+ addToWorld(
      new Array("\"Alas,\" said the mouse,",
                "\"the world is growing smaller",
                " every day.\""),
