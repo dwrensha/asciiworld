@@ -11,6 +11,10 @@
  var objectsThatAct = new Array();
 
  function isEmpty(row, col) {
+     if (row < 0 || col < 0 ||
+         row >= worldrows || col >= worldcolumns) {
+         return false;
+     }
      var o = world[row][col];
      if (o === undefined) return true;
      if (o.renderChar == " " || 
@@ -117,6 +121,7 @@
      switch (char) {
      case "@" : // player
          o = new Player();
+         player = o;
          break;
      case "0" : // score
          o = new Score(0);
@@ -161,7 +166,7 @@
                       "W W      W",
                       "W W      W",
                       "W W @  W W",
-                      "W      W W",
+                      "W      W  ",
                       "W      W W",
                       "W      W W",
                       "WWwWWWWWWW"),
@@ -244,16 +249,44 @@ function kdown(event) {
     if (event.which != 0)
         switch (event.keyCode) {
         case 37 : // LEFT
-            viewportj -= 1;
+            if (isEmpty(player.row, player.col - 1)) {
+                removeThingFromWorld(player.row, player.col);
+                player.col -= 1;
+                addThingToWorld(player.row, player.col, player);
+                if (player.col < viewportj + 5) {
+                    viewportj = player.col - 5;
+                }
+            }
             break;
         case 38 : // UP
-            viewporti -= 1;
+            if (isEmpty(player.row - 1, player.col)) {
+                removeThingFromWorld(player.row, player.col);
+                player.row -= 1;
+                addThingToWorld(player.row, player.col, player);
+                if (player.row < viewporti + 3) {
+                    viewporti = player.row - 3;
+                }
+            }
             break;
         case 39 : // RIGHT
-            viewportj += 1;
+            if (isEmpty(player.row, player.col + 1)) {
+                removeThingFromWorld(player.row, player.col);
+                player.col += 1;
+                addThingToWorld(player.row, player.col, player);
+                if (player.col > viewportj + viewportcolumns - 5) {
+                    viewportj = player.col - viewportcolumns + 5;
+                }
+            }
             break;
         case 40 : // DOWN
-            viewporti += 1;
+            if (isEmpty(player.row + 1, player.col)) {
+                removeThingFromWorld(player.row, player.col);
+                player.row += 1;
+                addThingToWorld(player.row, player.col, player);
+                if (player.row > viewporti + viewportrows - 3) {
+                    viewporti = player.row - viewportrows + 3;
+                }
+            }
             break;
         default:
         }
