@@ -98,7 +98,7 @@
  function Cannon() {
      this.act =
          (function() {
-             if (turn % 10 == 0) {
+             if (turn % 15 == 0) {
                  console.log("boom")
                  newThing(this.row - 1, this.col, "B");
              }
@@ -143,6 +143,10 @@
 
  }
 
+ function Silver () {
+
+ }
+
 
  function newThing(row, col, char) {
   
@@ -169,6 +173,11 @@
          objectsThatAct.push(o);
          break;
      case "g" : // gold
+         o = new Gold();
+         break;
+     case "s" : // silver
+         o = new Silver();
+         break;
      default :
          o = new GenericThing(char);
      }
@@ -192,7 +201,7 @@
  }
 
  addToWorld(new Array("WWWWWWWWWW",
-                      "W W      W",
+                      "WsW      W",
                       "W W      W",
                       "W W      W",
                       "W W @  W W",
@@ -210,6 +219,9 @@
 
  addToWorld(Array("SCORE: 0"),
              51, 101);
+
+ addToWorld(Array("CLUE?"),
+             90, 123);
 
  addToWorld(Array("wwwwwwwwwwwwwwwwwwwwww",
                   "wggwwwwwwwwwwwwwwwwwww",
