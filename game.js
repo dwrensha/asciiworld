@@ -264,6 +264,18 @@
                       "WWwWWWWWWW"),
             59,
             121);
+
+ addToWorld(new Array("WWWWWWWWWWWW",
+                      "W          W",
+                      "W WW WWWWWgW",
+                      "W W      WgW",
+                      "W W WWWWWWgW",
+                      "W W  W   WgW",
+                      "W WW W W WgW",
+                      "W  W   W   W",
+                      "WW WWWWWWWWW"),
+            70,
+            20);
             
  addToWorld(Array("ARROW KEYS",
                   "          ",
@@ -276,11 +288,11 @@
  addToWorld(Array("ggg"),
              48, 90);
 
- addToWorld(Array("-> MUSIC ->"),
+ addToWorld(Array("=> MUSIC =>"),
             90, 121);
 
  addToWorld(Array("wwwwwwwwwwwwwwwwwwwwww",
-                  "wggwwwwwwwwwwwwwwwwwww",
+                  "wwwwwwwwgggggwwwwwwwww",
                   "wwwwwwwwwwwwwwwwwwwwww"),
             30, 105);
  
@@ -303,6 +315,13 @@
                       "wwwww"),
             15, 60)
             
+            addToWorld(new Array("  /\\",
+                                 "  ||", 
+                                 "  ||",
+                                 "    ",
+                                 "PORTAL"),
+                       54, 60)
+
 
  var viewportrows = 30;
  var viewportcolumns = 50;
