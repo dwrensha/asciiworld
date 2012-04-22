@@ -98,7 +98,9 @@
                  }
 
                  switch (worldCharAt(targetrow, targetcol)) {
-                 case "w" :
+                 case "-":
+                 case "|":
+                 case "w":
                      // destroy it.
                      removeThingFromWorld(targetrow, targetcol); 
                      console.log("destroying it");
@@ -119,7 +121,7 @@
  function Cannon() {
      this.act =
          (function() {
-             if (turn % 25 == 0) {
+             if (turn % 21 == 0) {
                  newThing(this.row - 1, this.col, "B");
              }
              return true;
@@ -253,34 +255,35 @@
      }
  }
 
- addToWorld(new Array("WWWWWWWWWW",
-                      "WsW      W",
-                      "W W      W",
-                      "W W      W",
-                      "W W @  W W",
-                      "W      W  ",
-                      "W      W W",
-                      "W      W W",
-                      "WWwWWWWWWW"),
+ addToWorld(new Array("+-+------+",
+                      "|s|      |",
+                      "| |      |",
+                      "| |      |",
+                      "| | @  | |",
+                      "|      | |",
+                      "|      | |",
+                      "|      | |",
+                      "+------+-+"),
             59,
             121);
 
- addToWorld(new Array("WWWWWWWWWWWW",
-                      "W          W",
-                      "W WW WWWWWgW",
-                      "W W      WgW",
-                      "W W WWWWWWgW",
-                      "W W  W   WgW",
-                      "W WW W W WgW",
-                      "W  W   W   W",
-                      "WW WWWWWWWWW"),
+ addToWorld(new Array("+----------+",
+                      "|          |",
+                      "| +- ----+g|",
+                      "| |      |g|",
+                      "| | -----+g|",
+                      "| |  |   |g|",
+                      "| ++ + + |g|",
+                      "|  |   |   |",
+                      "-- ---------"),
             70,
             20);
             
  addToWorld(Array("ARROW KEYS",
-                  "          ",
-                  " TO MOVE  "),
-            76, 121);
+                  "----------",
+                  " TO MOVE  ",
+                  "----------"),
+            74, 121);
 
  addToWorld(Array("SCORE: 0"),
              51, 101);
@@ -315,9 +318,9 @@
                       "wwwww"),
             15, 60)
             
-            addToWorld(new Array("  /\\",
-                                 "  ||", 
-                                 "  ||",
+            addToWorld(new Array("  ^",
+                                 "  |", 
+                                 "  |",
                                  "    ",
                                  "PORTAL"),
                        54, 60)
