@@ -322,6 +322,30 @@
                                  "PORTAL"),
                        54, 60)
 
+ addToWorld(
+     new Array("\"Alas,\" said the mouse,",
+               "\"the world is growing smaller",
+               " every day.\""),
+     20, 150)
+
+ addToWorld(
+     new Array("\"At the beginning",
+               " it was so big that",
+               " I was afraid.\""),
+     40, 150)
+
+ addToWorld(
+     new Array("\"I was glad when",
+               " at last I saw the walls",
+               " far away to the",
+               " right and left,\""),
+     60, 150)
+
+ addToWorld(
+     new Array("\"but these walls",
+               " have narrowed so quickly...\""),
+     80, 150)
+
 
  var viewportrows = 30;
  var viewportcolumns = 50;
