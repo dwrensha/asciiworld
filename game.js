@@ -83,6 +83,14 @@
                      targetcol = this.col - 1;
                  }
 
+                 // portals
+                 if (worldCharAt(targetrow, targetcol) == 'p') {
+                     var p = world[targetrow][targetcol];
+                     targetrow = p.other.row + (targetrow - this.row)
+                     targetcol = p.other.col + (targetcol - this.col)
+                 }
+
+
                  if (isEmpty(targetrow, targetcol)) {
                      this.row = targetrow
                      this.col = targetcol
@@ -176,6 +184,19 @@
      })
  }
 
+ var otherportal = undefined;
+
+ function Portal () {
+     if (otherportal === undefined) {
+         otherportal = this;
+         this.other = undefined;
+     } else {
+         this.other = otherportal;
+         otherportal.other = this;
+     }
+
+ }
+
 
  function newThing(row, col, char) {
   
@@ -206,6 +227,9 @@
          break;
      case "s" : // silver
          o = new Silver();
+         break;
+     case "p" : // portal
+         o = new Portal();
          break;
      default :
          o = new GenericThing(char);
@@ -252,16 +276,32 @@
  addToWorld(Array("ggg"),
              48, 90);
 
- addToWorld(Array("CLUE?"),
-             90, 123);
+ addToWorld(Array("-> MUSIC ->"),
+            90, 121);
 
  addToWorld(Array("wwwwwwwwwwwwwwwwwwwwww",
                   "wggwwwwwwwwwwwwwwwwwww",
                   "wwwwwwwwwwwwwwwwwwwwww"),
             30, 105);
  
- addToWorld(new Array("\u266A"),
-            75, 120)
+ addToWorld(new Array("WWW",
+                      "W\u266AW",
+                      "www"),
+            87, 170)
+
+ addToWorld(new Array("wwwww",
+                      "w   w",
+                      "w p w",
+                      "w   w",
+                      "wwwww"),
+            94, 169)
+
+ addToWorld(new Array("wwwww",
+                      "w   w",
+                      "w p w",
+                      "w   w",
+                      "wwwww"),
+            15, 60)
             
 
  var viewportrows = 30;
@@ -347,6 +387,13 @@ function kdown(event) {
         default:
         }
         if (move) {
+            
+            // portals
+            if (worldCharAt(targetrow, targetcol) == 'p') {
+                var p = world[targetrow][targetcol];
+                targetrow = p.other.row + (targetrow - player.row)
+                targetcol = p.other.col + (targetcol - player.col)
+            }
 
             if (isEmpty(targetrow, targetcol)) {
 
@@ -374,8 +421,8 @@ function kdown(event) {
                     for (var i = 0; i < 100; ++i) { scoreObj.increment(); }
                     break;
                 case "B":
-                    die();
                     removeThingFromWorld(targetrow, targetcol);
+                    die();
                     render();
                     return true;
                     break;
