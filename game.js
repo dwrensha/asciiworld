@@ -22,7 +22,10 @@
      if (0 <= row && 0 <= col &&
          row < worldrows && col < worldcolumns) {
          world[row][col] = thing;
-     };
+         return true;
+     } else {
+         return false;
+     }
  }
  function removeThingFromWorld(row, col) {
      if (0 <= row && 0 <= col &&
@@ -52,9 +55,9 @@
                  } else if (this.col > player.col) {
                      this.col -= 1;
                  }
-                 addThingToWorld(this.row, this.col, this);
-
+                 return addThingToWorld(this.row, this.col, this);
              }
+             return true;
          })
  }
 
@@ -65,6 +68,7 @@
                  console.log("boom")
                  newThing(this.row - 1, this.col, "B");
              }
+             return true;
 
          })
  }
@@ -170,9 +174,12 @@
  }
 
  function takeTurn() {
-     for (var i = 0; i < objectsThatAct.length; ++i){
-         var o = objectsThatAct[i];
-         o.act();
+     var numthings = objectsThatAct.length;
+     for (var i = 0; i < numthings; ++i){
+         var o = objectsThatAct.shift();
+         if (o.act()) {
+             objectsThatAct.push(o);
+         }
      }
      ++turn;
 
