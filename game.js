@@ -56,9 +56,12 @@
 
  var player;
 
+
  function Player() {
      player = this;
  }
+
+ var turnInterval;
  
  function die() {
      addToWorld(new Array("KABOOM.",
@@ -67,6 +70,7 @@
                 player.row,
                 player.col)
      window.onkeydown = function () {};
+     window.clearInterval(turnInterval);
 
  }
 
@@ -99,6 +103,7 @@
 
                  switch (worldCharAt(targetrow, targetcol)) {
                  case "-":
+                 case "+":
                  case "|":
                  case "w":
                      // destroy it.
@@ -122,7 +127,7 @@
      this.act =
          (function() {
              if (turn % 21 == 0) {
-                 newThing(this.row - 1, this.col, "B");
+                 newThing(this.row - 1, this.col, "*");
              }
              return true;
 
@@ -216,7 +221,7 @@
      case "1" : // score
          o = new Score(1);
          break;
-     case "B" :  // bomb
+     case "*" :  // bomb
          o = new Bomb()
          objectsThatAct.push(o);
          break;
@@ -275,7 +280,7 @@
                       "| |  |   |g|",
                       "| ++ + + |g|",
                       "|  |   |   |",
-                      "-- ---------"),
+                      "+- --------+"),
             70,
             20);
             
@@ -294,28 +299,28 @@
  addToWorld(Array("=> MUSIC =>"),
             90, 121);
 
- addToWorld(Array("wwwwwwwwwwwwwwwwwwwwww",
-                  "wwwwwwwwgggggwwwwwwwww",
-                  "wwwwwwwwwwwwwwwwwwwwww"),
+ addToWorld(Array("----------------------",
+                  "|||||||ggggg||||||||||",
+                  "----------------------"),
             30, 105);
  
- addToWorld(new Array("WWW",
-                      "W\u266AW",
-                      "www"),
+ addToWorld(new Array("+-+",
+                      "|\u266A|",
+                      "+-+"),
             87, 170)
 
- addToWorld(new Array("wwwww",
-                      "w   w",
-                      "w p w",
-                      "w   w",
-                      "wwwww"),
+ addToWorld(new Array("+---+",
+                      "|   |",
+                      "| p |",
+                      "|   |",
+                      "+---+"),
             94, 169)
 
- addToWorld(new Array("wwwww",
-                      "w   w",
-                      "w p w",
-                      "w   w",
-                      "wwwww"),
+ addToWorld(new Array("+---+",
+                      "|   |",
+                      "| p |",
+                      "|   |",
+                      "+---+"),
             15, 60)
             
             addToWorld(new Array("  ^",
@@ -397,6 +402,7 @@
          }
      }
      ++turn;
+     render();
  }
 
 function kpress(event) {
@@ -466,7 +472,7 @@ function kdown(event) {
                     player.col = targetcol;
                     for (var i = 0; i < 100; ++i) { scoreObj.increment(); }
                     break;
-                case "B":
+                case "*":
                     removeThingFromWorld(targetrow, targetcol);
                     die();
                     render();
@@ -505,12 +511,13 @@ function kdown(event) {
         return true;
     }
 
-    takeTurn();
     render();
 
     return true;
 }
 
+
+turnInterval = window.setInterval(takeTurn, 200);
 window.onkeypress = kpress;
 window.onkeyup = kup;
 window.onkeydown = kdown;
