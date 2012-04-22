@@ -30,7 +30,7 @@
  function removeThingFromWorld(row, col) {
      if (0 <= row && 0 <= col &&
          row < worldrows && col < worldcolumns) {
-         world[row][col] = newThing(row, col, "&nbsp");
+         world[row][col] = undefined
      };
  }
 
@@ -73,6 +73,41 @@
          })
  }
 
+ var scoreObj;
+
+ function Score (s) {
+     this.score = s;
+     this.parent = undefined;
+     this.child = undefined;
+     this.shiftRight = (function () {
+         if (this.child !== undefined) {
+             this.child.shiftRight();
+         }
+         addThingToWorld(this.row, this.col + 1, this);
+         this.col += 1;
+     })
+     this.increment = (function () {
+         this.score += 1;
+         if (this.score == 10) {
+             this.score = 0;
+
+             if (this.parent === undefined) {
+                 console.log("adding score digit");
+                 this.shiftRight();
+                 this.parent = newThing(this.row, this.col - 1, "1");
+                 this.parent.child = this;
+             } else {
+                 this.parent.increment();
+             }
+
+         }
+         this.renderChar = String(this.score);
+     });
+ }
+
+ function Gold () {
+
+ }
 
 
  function newThing(row, col, char) {
@@ -81,7 +116,14 @@
  
      switch (char) {
      case "@" : // player
-         o =  new Player();
+         o = new Player();
+         break;
+     case "0" : // score
+         o = new Score(0);
+         scoreObj = o;
+         break;
+     case "1" : // score
+         o = new Score(1);
          break;
      case "B" :  // bomb
          o = new Bomb()
@@ -91,6 +133,7 @@
          o = new Cannon()
          objectsThatAct.push(o);
          break;
+     case "g" : // gold
      default :
          o = new GenericThing(char);
      }
@@ -130,17 +173,14 @@
                   "  TO MOVE "),
             76, 123);
 
- addToWorld(Array("SCORE:"),
+ addToWorld(Array("SCORE: 0"),
              51, 101);
  
-
  var viewportrows = 30;
  var viewportcolumns = 50;
 
  var viewporti = 50;
  var viewportj = 100;
-
-
 
  function subarrayToString(row, start, end) {
      var res = "";
@@ -156,7 +196,11 @@
          if (j < 0 || j >= worldcolumns) {
              res += 'X';
          } else if (world[row][j] !== undefined) {
-             res += world[row][j].renderChar;
+             var c = world[row][j].renderChar;
+             res += c;
+//             if (c.length > 1) {
+//                 j += c.length - 1;
+//             }
          } else {
              res += '&nbsp'
          }
@@ -181,7 +225,9 @@
              objectsThatAct.push(o);
          }
      }
+     console.log("stuff: " + objectsThatAct.length);
      ++turn;
+     scoreObj.increment();
 
  }
 
