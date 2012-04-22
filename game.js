@@ -18,6 +18,19 @@
      return false;
  }
 
+ function addThingToWorld(row, col, thing) {
+     if (0 <= row && 0 <= col &&
+         row < worldrows && col < worldcolumns) {
+         world[row][col] = thing;
+     };
+ }
+ function removeThingFromWorld(row, col) {
+     if (0 <= row && 0 <= col &&
+         row < worldrows && col < worldcolumns) {
+         world[row][col] = newThing(row, col, "&nbsp");
+     };
+ }
+
  function GenericThing(char) {
  }
 
@@ -32,14 +45,14 @@
          (function () {
              if (turn % 2 == 1) {
                  console.log("crawl");
-                 world[this.row][this.col] = newThing(this.row, this.col, "&nbsp");
+                 removeThingFromWorld(this.row, this.col);
                  this.row -= 1;
                  if (this.col < player.col) {
                      this.col += 1;
                  } else if (this.col > player.col) {
                      this.col -= 1;
                  }
-                 world[this.row][this.col] = this;
+                 addThingToWorld(this.row, this.col, this);
 
              }
          })
