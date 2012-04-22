@@ -99,7 +99,6 @@
      this.act =
          (function() {
              if (turn % 15 == 0) {
-                 console.log("boom")
                  newThing(this.row - 1, this.col, "B");
              }
              return true;
@@ -144,7 +143,24 @@
  }
 
  function Silver () {
-
+     this.loc = 0;
+     this.reloc = (function () {
+         switch (this.loc) {
+         case 0:
+             this.row = 66;
+             this.col = 129;
+             addThingToWorld(this.row, this.col, this);
+             this.loc = 1;
+             break;
+         case 1: 
+             this.row = 60;
+             this.col = 122;
+             addThingToWorld(this.row, this.col, this);
+             this.loc = 0;
+             break;
+         default:
+         }
+     })
  }
 
 
@@ -214,7 +230,7 @@
             
  addToWorld(Array("ARROW KEYS",
                   "          ",
-                  "  TO MOVE "),
+                  " TO MOVE  "),
             76, 121);
 
  addToWorld(Array("SCORE: 0"),
@@ -275,8 +291,6 @@
          }
      }
      ++turn;
-     scoreObj.increment();
-
  }
 
 function kpress(event) {
@@ -289,51 +303,80 @@ function kup(event) {
 
 function kdown(event) {
 //    console.log(event);
-    if (event.which != 0)
+    if (event.which != 0) {
+        var targetrow = player.row;
+        var targetcol = player.col;
+        var move = false;
         switch (event.keyCode) {
         case 37 : // LEFT
-            if (isEmpty(player.row, player.col - 1)) {
-                removeThingFromWorld(player.row, player.col);
-                player.col -= 1;
-                addThingToWorld(player.row, player.col, player);
-                if (player.col < viewportj + 5) {
-                    viewportj = player.col - 5;
-                }
-            }
+            targetcol = player.col - 1;
+            move = true;
             break;
         case 38 : // UP
-            if (isEmpty(player.row - 1, player.col)) {
-                removeThingFromWorld(player.row, player.col);
-                player.row -= 1;
-                addThingToWorld(player.row, player.col, player);
-                if (player.row < viewporti + 3) {
-                    viewporti = player.row - 3;
-                }
-            }
+            targetrow = player.row - 1;
+            move = true;
             break;
         case 39 : // RIGHT
-            if (isEmpty(player.row, player.col + 1)) {
-                removeThingFromWorld(player.row, player.col);
-                player.col += 1;
-                addThingToWorld(player.row, player.col, player);
-                if (player.col > viewportj + viewportcolumns - 5) {
-                    viewportj = player.col - viewportcolumns + 5;
-                }
-            }
+            targetcol = player.col + 1;
+            move = true;
             break;
         case 40 : // DOWN
-            if (isEmpty(player.row + 1, player.col)) {
-                removeThingFromWorld(player.row, player.col);
-                player.row += 1;
-                addThingToWorld(player.row, player.col, player);
-                if (player.row > viewporti + viewportrows - 3) {
-                    viewporti = player.row - viewportrows + 3;
-                }
-            }
+            targetrow = player.row + 1;
+            move = true;
             break;
         default:
         }
-    else {
+        if (move) {
+
+            if (isEmpty(targetrow, targetcol)) {
+
+
+                removeThingFromWorld(player.row, player.col);
+                addThingToWorld(targetrow, targetcol, player);
+                player.row = targetrow;
+                player.col = targetcol;
+            } else {
+                switch (worldCharAt(targetrow, targetcol)) {
+                case "s":
+                    world[targetrow][targetcol].reloc();
+                    removeThingFromWorld(player.row, player.col);
+                    addThingToWorld(targetrow, targetcol, player);
+                    player.row = targetrow;
+                    player.col = targetcol;
+                    scoreObj.increment();
+
+                    break;
+                case "g":
+                    removeThingFromWorld(player.row, player.col);
+                    addThingToWorld(targetrow, targetcol, player);
+                    player.row = targetrow;
+                    player.col = targetcol;
+                    for (var i = 0; i < 100; ++i) { scoreObj.increment(); }
+                    break;
+                case "B":
+                    break;
+                default:
+
+                }
+                
+            }
+
+
+            if (player.col < viewportj + 5) {
+                viewportj = player.col - 5;
+            }
+            if (player.row < viewporti + 3) {
+                viewporti = player.row - 3;
+            }
+            if (player.col > viewportj + viewportcolumns - 5) {
+                viewportj = player.col - viewportcolumns + 5;
+            }
+            if (player.row > viewporti + viewportrows - 3) {
+                viewporti = player.row - viewportrows + 3;
+            }
+        }
+        
+    } else {
         // default action.
         return true;
     }
